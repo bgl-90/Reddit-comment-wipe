@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 bgl90
+Copyright (c) 2026
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -8,6 +8,16 @@ in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
+
+Any distributed or publicly accessible version of the Software (modified or unmodified) must retain a visible attribution to the original author.
+
+The original donation/support links included in the Software or its documentation must remain present and must not be removed or hidden.
+
+   These links include (but are not limited to):
+   - PayPal donation link(s)
+   - Crypto wallet address(es)
+   - Any other explicit support/donation references provided by the author
+
 
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
@@ -19,3 +29,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+If you fork, redistribute or republish this script, please keep the original
+donation link (https://donatr.ee/bgl-90) and attribution intact. Removing them
+is legal under the MIT terms above, but goes against the spirit in which this
+software was shared.
