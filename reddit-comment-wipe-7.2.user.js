@@ -3,7 +3,7 @@
 // @namespace    reddit-wipe
 // @version      7.2
 // @description  Bulk edit+delete your own comments & posts on old.reddit.com. JSON listing engine, predictive rate limiting, filters, dry-run, deletion log, offline/watchdog resilience, dual API/DOM engine, full status UI
-// @author       bgl-90
+// @author       https://github.com/bgl-90
 // @license      MIT
 // @homepageURL  https://donatr.ee/bgl-90
 // @supportURL   https://donatr.ee/bgl-90
