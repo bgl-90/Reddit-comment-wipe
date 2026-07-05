@@ -1,8 +1,17 @@
 # Reddit Comment Wipe
 
-![If you like it, buy me a coffee https://donatr.ee/bgl-90
+[☕ If you like it, buy me a coffee](https://donatr.ee/bgl-90)
 
-A Tampermonkey userscript that bulk-overwrites and deletes **your own comments** on old.reddit.com. Each comment is first edited (so the original text is not the last stored revision), then deleted. Runs fully automated across all comment sorts with adaptive rate limiting and a live status panel.
+**Take back control of your Reddit history — in one click.** Reddit Comment Wipe is a Tampermonkey userscript that bulk-overwrites and then deletes **your own comments** (and optionally posts) on old.reddit.com. Every item is first edited with filler text — so the original never remains as the last stored revision in archives — and only then deleted. Press START, walk away, and come back to a clean profile and a CSV record of everything that was removed.
+
+What sets it apart is that the core machinery is genuinely intelligent and built to survive anything a long unattended run can throw at it:
+
+- **It thinks ahead, not just reacts.** The script reads Reddit's own rate-limit headers and paces itself so it never spends the API quota faster than it refills — 429 errors are avoided before they happen, while the speed stays at the allowed maximum. When errors do occur, TCP-style adaptation backs off sharply and creeps back to the optimum on its own.
+- **It's bulletproof by design.** Network drops? It pauses and resumes by itself. A hung request? A watchdog reloads and continues. Tab in the background? Worker timers keep it at full speed. Browser restarted mid-run? It offers to pick up exactly where it left off. Locked or archived threads, stale listings, expired sessions — all handled automatically, without losing a single item or double-counting one.
+- **It's transparent.** A live panel shows progress %, dual deletion rates, ETAs and a dozen counters; every deleted item is preserved in a one-click CSV log (with score, subreddit, original text); and a persistent diagnostic log records every decision the engine made, so any run can be analyzed after the fact.
+- **You stay in charge.** Dry-run mode shows what *would* be deleted before anything happens; age, karma and subreddit filters protect what you want to keep; a safety lock ensures it only ever runs on your own logged-in profile.
+
+Install `reddit-comment-wipe-7.2.user.js` (latest). Older versions (5.8 minimal, 6.1 with log/filters/dry-run) are kept in `archive/`. Core logic is covered by an automated test suite (`node tests/core.test.mjs`).
 
 ## Why edit before delete?
 
@@ -21,6 +30,17 @@ Deleting a Reddit comment removes it from public view, but the last saved text m
 - **Extended counters**: API→DOM and DOM→API switches, 429 and other errors, backoffs, restarts
 - **Donate link** in the panel footer
 - **Controls**: START / PAUSE / STOP / RESET / EXPORT (stats+settings to clipboard as JSON)
+
+### New in 6.0
+
+- **Deletion log**: every deleted item is recorded (persistent, survives RESET) with the data already visible in the listing — no extra clicks or requests: deletion time, creation date, kind, subreddit, **score (upvotes)**, post title, first 200 characters of the original text, permalink. One click on **⬇ CSV** downloads the whole log (Excel-compatible)
+- **Filters**: minimum age (only delete items older than N days), keep-karma threshold (items at/above a score are kept), subreddit list in SKIP (keep listed) or ONLY (process only listed) mode
+- **Dry run**: simulates the full run without deleting anything; logs and counts what would be deleted
+- **Posts support** (optional): submissions on the overview page — self-posts edited+deleted, link posts deleted
+- **Dedup**: items re-shown by stale Reddit listings are recognized and not double-counted
+- **Safety lock**: START only works on the logged-in account's own profile
+- **Panel**: collapsible and draggable; rough total-run ETA
+- Tampermonkey dashboard icon; `@downloadURL`/`@updateURL` template for auto-updates (see comment in the script header)
 - **All tunables adjustable in the panel** (persisted across sessions):
 
 | Setting | Range | Default |
@@ -58,6 +78,8 @@ Deleting a Reddit comment removes it from public view, but the last saved text m
 - Works only on your **own** comments while logged in.
 - Reddit rate limits (~60 requests/min) apply; the defaults stay safely below. If you see frequent 429s, lower the speed or keep adaptive mode on.
 - Reddit may cache/archive content; overwrite-then-delete reduces but cannot guarantee complete removal.
+- The karma filter and the log's score column rely on scores being visible in the listing (Reddit preferences → "show comment scores"); items with hidden scores can't be protected by the karma filter.
+- The deletion log is stored in Tampermonkey's storage on your machine; it contains your deleted text snippets — clear it (✕) if you don't want to keep them.
 - Use at your own risk. Bulk automation is a gray area under Reddit's Terms of Service.
 
 ## Support
